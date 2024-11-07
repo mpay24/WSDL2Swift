@@ -294,6 +294,14 @@ extension Data: ExpressibleByXML, SOAPParamConvertible {
         return [AEXMLElement(name: name, value: base64EncodedString())]
     }
 }
+extension URL: ExpressibleByXML, SOAPParamConvertible {
+    public init?(xmlValue: String) {
+        self.init(string: xmlValue)
+    }
+    public func xmlElements(name: String) -> [AEXMLElement] {
+        return [AEXMLElement(name: name, value: self.absoluteString)]
+    }
+}
 extension Array: SOAPParamConvertible { // Swift 3 does not yet support conditional protocol conformance (where Element: SOAPParamConvertible)
     public func xmlElements(name: String) -> [AEXMLElement] {
         var a: [AEXMLElement] = []
