@@ -12,9 +12,12 @@ private let typeMap: [String: String] = [
     "string": "\(String.self)", // xs:string
     "boolean": "\(Bool.self)", // xs:boolean
     "int": "\(Int32.self)",
+    "unsignedInt": "\(UInt32.self)",
     "long": "\(Int64.self)",
+    "unsignedLong": "\(UInt64.self)",
     "dateTime": "\(Date.self)",
     "base64Binary": "\(Data.self)",
+    "anyURI": "\(URL.self)",
 ]
 
 private let swiftKeywords: [String] = [
