@@ -261,11 +261,11 @@ extension Int64: ExpressibleByXML, SOAPParamConvertible {
 }
 extension Date: ExpressibleByXML, SOAPParamConvertible {
     public init?(xmlValue: String) throws {
-        guard let v = NSDate(iso8601String: xmlValue) as Date? else { throw SOAPParamError.unknown }
+        guard let v = Formatter.shared.date(string: xmlValue) as Date? else { throw SOAPParamError.unknown }
         self = v
     }
     public func xmlElements(name: String) -> [AEXMLElement] {
-        return [AEXMLElement(name: name, value: (self as NSDate).iso8601String())]
+        return [AEXMLElement(name: name, value: Formatter.shared.string(date: self))]
     }
 }
 extension Data: ExpressibleByXML, SOAPParamConvertible {

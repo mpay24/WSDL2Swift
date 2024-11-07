@@ -1,6 +1,6 @@
 //
 //  ISO8601.swift
-//  ISO8601 (borrowed from https://github.com/onmyway133/ISO8601.git)
+//  ISO8601 (from https://github.com/onmyway133/ISO8601.git)
 //
 //  Created by Khoa Pham on 06/05/16.
 //  Copyright © 2016 Fantageek. All rights reserved.
