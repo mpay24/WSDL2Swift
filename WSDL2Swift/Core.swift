@@ -15,6 +15,7 @@ private let typeMap: [String: String] = [
     "unsignedInt": "\(UInt32.self)",
     "long": "\(Int64.self)",
     "unsignedLong": "\(UInt64.self)",
+    "date": "\(Date.self)",
     "dateTime": "\(Date.self)",
     "base64Binary": "\(Data.self)",
     "anyURI": "\(URL.self)",

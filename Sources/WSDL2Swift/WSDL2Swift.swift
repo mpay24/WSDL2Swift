@@ -250,9 +250,27 @@ extension Int32: ExpressibleByXML, SOAPParamConvertible {
         return [AEXMLElement(name: name, value: String(self))]
     }
 }
+extension UInt32: ExpressibleByXML, SOAPParamConvertible {
+    public init?(xmlValue: String) throws {
+        guard let v = UInt32(xmlValue) else { throw SOAPParamError.unknown }
+        self = v
+    }
+    public func xmlElements(name: String) -> [AEXMLElement] {
+        return [AEXMLElement(name: name, value: String(self))]
+    }
+}
 extension Int64: ExpressibleByXML, SOAPParamConvertible {
     public init?(xmlValue: String) throws {
         guard let v = Int64(xmlValue) else { throw SOAPParamError.unknown }
+        self = v
+    }
+    public func xmlElements(name: String) -> [AEXMLElement] {
+        return [AEXMLElement(name: name, value: String(self))]
+    }
+}
+extension UInt64: ExpressibleByXML, SOAPParamConvertible {
+    public init?(xmlValue: String) throws {
+        guard let v = UInt64(xmlValue) else { throw SOAPParamError.unknown }
         self = v
     }
     public func xmlElements(name: String) -> [AEXMLElement] {
