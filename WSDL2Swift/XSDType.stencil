@@ -1,3 +1,9 @@
+{% if values  %}
+public enum {{ name }} {
+{% for v in values %}    case {{ v }}
+{% endfor %}
+}
+{% else %}
 public struct {{ name }} {
 {% for e in elements %}    public var {{ e.name }}: {{ e.type }}
 {% endfor %}{% if base.elements %}    // inherited from {{ base.name }}
@@ -16,3 +22,4 @@ public struct {{ name }} {
     }
 {% endif %}
 }
+{% endif %}
