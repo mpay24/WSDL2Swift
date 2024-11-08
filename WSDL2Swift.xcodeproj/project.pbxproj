@@ -74,6 +74,7 @@
 		EA1F09B21DE438EE00414030 /* Preamble.stencil */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = Preamble.stencil; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA1F09B31DE438EE00414030 /* WSDLService.stencil */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = WSDLService.stencil; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA1F09B41DE438EE00414030 /* XSDType.stencil */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = XSDType.stencil; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EA2D7D491DEBED7900EA13B8 /* ExpressibleByXML.stencil */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = ExpressibleByXML.stencil; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA1F09C21DE43B3900414030 /* iOSWSDL2Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSWSDL2Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1F09C41DE43B3900414030 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA1F09C61DE43B3900414030 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,7 +84,6 @@
 		EA1F09D41DE43C0700414030 /* exampleWSDLs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = exampleWSDLs; sourceTree = "<group>"; };
 		EA1F09DA1DE43D6000414030 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		EA2B48D21E0B5746001D592A /* WSDL+TempConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WSDL+TempConvert.swift"; sourceTree = "<group>"; };
-		EA2D7D491DEBED7900EA13B8 /* ExpressibleByXML.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ExpressibleByXML.stencil; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
