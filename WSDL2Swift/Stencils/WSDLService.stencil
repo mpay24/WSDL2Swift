@@ -1,0 +1,143 @@
+import Foundation
+import XMLCoder
+
+{% if documentation %}
+/// {{ documentation }}
+{% endif -%}
+public struct {{ name }}: WSDLService {
+    public var endpoint = "{{ location }}"
+    public var targetNamespace = "{{ targetNamespace }}"
+    public var authentication: Authentication = .none
+    public var characterSet: CharacterSet = .unspecified
+    public var soapRequest: ((_ request: String) -> Void)?
+    public var soapResponse: ((_ response: String) -> Void)?
+    public init(_ domain: String? = nil) {
+        if let domain {
+            self.endpoint = "\(domain)/{{ path }}"
+        }
+    }
+
+    {%- for operation in operations %}
+    {% if operation.documentation %}
+    /// {{ operation.documentation }}
+    {%- endif %}
+    public func {{ operation.name }}(_ req: {{ operation.inParam }}) async throws -> {{ operation.outParam }} {
+        return try await operation(req)
+    }
+    {%- endfor %}
+
+    {%- for simpleType in simpleTypes %}
+    {% if simpleType.annotation.documentation %}
+    /// {{ simpleType.annotation.documentation }}
+    {%- endif %}
+    public enum {{ simpleType.name }}: {{ simpleType.base }}, Codable, CustomStringConvertible, CaseIterable, Equatable, Hashable {
+        {%- for value in simpleType.enumeration %}
+        case {{ value }}
+        {%- endfor %}
+        public var description: String { rawValue }
+    }
+    {%- endfor %}
+
+    {%- for complexType in complexTypes %}
+    {% if complexType.isProtocol %}
+    /// enables {{ complexType.name }} extensions
+    public protocol {{ complexType.name }}Protocol: Codable, DynamicNodeEncoding {
+        {%- for element in complexType.elements %}
+        var {{ element.name }}: {{ element.type }}{% if element.optional %}?{%- endif %} { get set }
+        {%- endfor %}
+    }
+    {% endif -%}
+    {%- if complexType.annotation.documentation %}
+    /// {{ complexType.annotation.documentation }}
+    {%- endif %}
+    public struct {{ complexType.name }}: Codable{% if complexType.base %}, DynamicNodeEncoding, {{ complexType.base }}Protocol{% endif %}{% if complexType.isProtocol %}, DynamicNodeEncoding, {{ complexType.name }}Protocol{% endif %} {
+        {%- if complexType.base or complexType.isProtocol %}
+        public var xsiType: String = "tns:{{ complexType.name }}"
+        {%- endif %}
+        {%- if complexType.base and complexType.baseElements %}
+        // properties inherited from {{ complexType.base }}Protocol
+        {%- for element in complexType.baseElements %}
+        public var {{ element.name }}: {{ element.type }}{% if element.optional %}?{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %}
+        {%- endfor %}
+        // own properties
+        {%- endif %}
+        {%- for element in complexType.elements %}
+        public var {{ element.name }}: {{ element.type }}{% if element.optional %}?{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %}
+        {%- endfor %}
+        {%- if complexType.base or complexType.isProtocol %}
+        
+        enum CodingKeys: String, CodingKey {
+            case xsiType = "xsi:type"
+            {%- if complexType.baseElements or complexType.elements %}
+            case
+            {%- for element in complexType.baseElements %} {{ element.name }},{% endfor -%}
+            {%- for element in complexType.elements %} {{ element.name }}{% if not forloop.last %},{% endif %}
+            {%- endfor %}
+            {%- endif %}
+        }
+        
+        public static func nodeEncoding(for key: CodingKey) -> XMLEncoder.NodeEncoding {
+            switch key {
+            case {{ complexType.name }}.CodingKeys.xsiType: return .attribute
+            default: return .element
+            }
+        }
+        {%- endif %}
+        {%- if complexType.hasProtocolElements %}
+        
+        enum CodingKeys: CodingKey {
+            {%- if complexType.baseElements or complexType.elements %}
+            case
+            {%- for element in complexType.baseElements %} {{ element.name }},{% endfor -%}
+            {%- for element in complexType.elements %} {{ element.name }}{% if not forloop.last %},{% endif %}
+            {%- endfor %}
+            {%- endif %}
+        }
+
+        public init(
+            {%- if complexType.baseElements or complexType.elements %}
+            {%- for element in complexType.baseElements %}
+            {{ element.name }}: {{ element.type }}{% if element.optional %}? = nil{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %},
+            {%- endfor %}
+            {%- for element in complexType.elements %}
+            {{ element.name }}: {{ element.type }}{% if element.optional %}? = nil{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %}{% if not forloop.last %},{% endif %}
+            {%- endfor %}
+            {%- endif %}
+        )  {
+            {%- if complexType.baseElements or complexType.elements %}
+            {%- for element in complexType.baseElements %}
+            self.{{ element.name }} = {{ element.name }}
+            {%- endfor %}
+            {%- for element in complexType.elements %}
+            self.{{ element.name }} = {{ element.name }}
+            {%- endfor %}
+            {%- endif %}
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            {%- if complexType.baseElements or complexType.elements %}
+            {%- for element in complexType.baseElements %}
+            self.{{ element.name }} = try container.decode{% if element.optional %}IfPresent{%- endif %}({{ element.type }}.self, forKey: .{{ element.name }})
+            {%- endfor %}
+            {%- for element in complexType.elements %}
+            self.{{ element.name }} = try container.decode{% if element.optional %}IfPresent{%- endif %}({{ element.type }}.self, forKey: .{{ element.name }})
+            {%- endfor %}
+            {%- endif %}
+        }
+
+        public func encode(to encoder: any Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            {%- if complexType.baseElements or complexType.elements %}
+            {%- for element in complexType.baseElements %}
+            try container.encode{% if element.optional %}IfPresent{%- endif %}(self.{{ element.name }}, forKey: .{{ element.name }})
+            {%- endfor %}
+            {%- for element in complexType.elements %}
+            try container.encode{% if element.optional %}IfPresent{%- endif %}(self.{{ element.name }}, forKey: .{{ element.name }})
+            {%- endfor %}
+            {%- endif %}
+        }
+        {%- endif %}
+    }
+    {%- endfor %}
+}
