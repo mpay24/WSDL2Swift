@@ -52,7 +52,7 @@ public struct {{ name }}: WSDLService {
     {%- endif %}
     public struct {{ complexType.name }}: Codable{% if complexType.base %}, DynamicNodeEncoding, {{ complexType.base }}Protocol{% endif %}{% if complexType.isProtocol %}, DynamicNodeEncoding, {{ complexType.name }}Protocol{% endif %} {
         {%- if complexType.base or complexType.isProtocol %}
-        public var xsiType: String = "tns:{{ complexType.name }}"
+        private var xsiType: String = "tns:{{ complexType.name }}"
         {%- endif %}
         {%- if complexType.base and complexType.baseElements %}
         // properties inherited from {{ complexType.base }}Protocol
