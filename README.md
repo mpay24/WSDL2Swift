@@ -1,16 +1,7 @@
 WSDL2Swift
 ==========
 
-
-[![Build Status](https://app.bitrise.io/app/b3e5e6ff40591613/status.svg?token=34E9CkQQZr8WZtfpdQVZTw&branch=master)](https://app.bitrise.io/app/b3e5e6ff40591613)
-[![Version](https://img.shields.io/cocoapods/v/WSDL2Swift.svg?style=flat)](https://cocoapods.org/pods/WSDL2Swift)
-[![License](https://img.shields.io/cocoapods/l/WSDL2Swift.svg?style=flat)](https://cocoapods.org/pods/WSDL2Swift)
-[![Platform](https://img.shields.io/cocoapods/p/WSDL2Swift.svg?style=flat)](https://cocoapods.org/pods/WSDL2Swift)
-
-Swift alternative to WSDL2ObjC making a SOAP request & parsing its response as defined in WSDL.
-Objective-C free.
-
-Stubs for unit test can be implemented using [Toki](https://github.com/banjun/Toki).
+Swift alternative to WSDL2ObjC making a SOAP request & parsing its response as defined in WSDL using modern Swift.
 
 ## Input & Output
 
@@ -22,113 +13,118 @@ Input
 Output
 
 * a Swift file which works as SOAP client
-	* Swift 4 (Xcode 9)
-	* NSURLSession for connection
-	* [BrightFutures](https://github.com/Thomvis/BrightFutures) for returning asynchronous requests
-	* [Fuzi](https://github.com/cezheng/Fuzi) for fast parsing xmls
-	* [AEXML](https://github.com/tadija/AEXML) for generating xmls
+	* Swift 6 (Xcode 16.1)
+	* URLSession asynchronous connection
+ 	* Custom charset encoding
+  	* Basic Authentication
+	* [XMLCoder](https://github.com/CoreOffice/XMLCoder.git) for generating and parsing xml using Codable protocol
 
 ## Usage
 
 ### Build
 
-```sh
-bundle install
-bundle exec fastlane archive
-```
-
-you can build and debug with WSDL2Swift scheme of the xcodeproj. Archive build is not supported yet.
-
-product executable is portable, as long as shipped with ./Frameworks and ./Stencils.
+You can build and debug with WSDL2Swift scheme of the xcodeproj. Archive build is not supported yet.
 
 ### Generate
 
-generate WSDL.swift from WSDL and XSD xmls:
+Generate WSDL.swift from WSDL and XSD xmls:
 
 ```sh
 ./build/Build/Products/Release/WSDL2Swift --out path/to/WSDL.swift path/to/service.wsdl.xml path/to/service.xsd.xml
 ```
 
-the order of input files is important.
-referenced XSDs should be placed immediately after referencing WSDL.
+The order of input files is important - referenced XSDs should be placed immediately after referencing WSDL.
 
 ### Use In App
 
-add WSDL.swift to your project and use:
-(note that service type name and requeest type name are vary, depending on source WSDL)
+Add generated swift file to your project.
+(service name and requeest types are extracted from the source WSDL)
 
-generated code from example by w3schools temperature converter:
+Generated code from the temperature converter w3schools example:
 
 ```swift
+import Foundation
+import XMLCoder
+
 public struct TempConvert: WSDLService {
-	:
-    public func request(_ parameters: TempConvert_CelsiusToFahrenheit) -> Future<TempConvert_CelsiusToFahrenheitResponse, WSDLOperationError> {
-        return requestGeneric(parameters)
+    public var endpoint = "http://www.w3schools.com/xml/tempconvert.asmx"
+    public var targetNamespace = "https://www.w3schools.com/xml/"
+    public var authentication: Authentication = .none
+    public var characterSet: CharacterSet = .unspecified
+    public var soapRequest: ((_ request: String) -> Void)?
+    public var soapResponse: ((_ response: String) -> Void)?
+    public init(_ domain: String? = nil) {
+        if let domain {
+            self.endpoint = "\(domain)/xml/tempconvert.asmx"
+        }
     }
-    :
+    
+    public func FahrenheitToCelsius(_ req: FahrenheitToCelsius) async throws -> FahrenheitToCelsiusResponse {
+        return try await operation(req)
+    }
+    
+    public func CelsiusToFahrenheit(_ req: CelsiusToFahrenheit) async throws -> CelsiusToFahrenheitResponse {
+        return try await operation(req)
+    }
+    
+    public struct FahrenheitToCelsius: Codable {
+        public var Fahrenheit: String?
+    }
+    
+    public struct FahrenheitToCelsiusResponse: Codable {
+        public var FahrenheitToCelsiusResult: String?
+    }
+    
+    public struct CelsiusToFahrenheit: Codable {
+        public var Celsius: String?
+    }
+    
+    public struct CelsiusToFahrenheitResponse: Codable {
+        public var CelsiusToFahrenheitResult: String?
+    }
 }
-
-:
-
-public struct TempConvert_CelsiusToFahrenheit {
-    public var Celsius: String?
-}
-
-public struct TempConvert_CelsiusToFahrenheitResponse {
-    public var CelsiusToFahrenheitResult: String?
-}
-
-:
-(continued...)
 ```
 
-code using the generated client:
+Using the generated client (the package WSDLService introduces runtime dependencies):
 
 ```swift
-let service = TempConvert(endpoint: "http://www.w3schools.com")
-service.request(TempConvert_CelsiusToFahrenheit(Celsius: "23.4")).onComplete { r in
-    NSLog("%@", "TempConvert_CelsiusToFahrenheit(Celsius: \"23.4\") = \(r)")
-}
+import WSDLService
+
+let service = TempConvert()
+let request = TempConvert.CelsiusToFahrenheit(Celsius: "23.4")
+let response = await service.CelsiusToFahrenheit(request)
+print("\(request) = \(response)")
 ```
 
-with dependencies:
+### Customizations
 
-```ruby
-pod 'WSDL2Swift'
-```
-
-note that pod WSDL2Swift just introduces runtime dependencies. it does not provide WSDL2Swift executable binary nor generated WSDL client Swift files.
-
-sometimes, somewhere in your dependencies chain (transitive framework dependencies or test bundle), header search paths for libxml2 is required. see podspec to add manually.
-
-### Customize
-
-You can specify charset of SOAP request by editing the generated code.
-
-The following code is an example when you want to specify character code to be interpreted as utf-8.
+Initialize using custom domain:
 
 ```swift
-public var characterSetInContentType: CharacterSetInContentType {
-    return .utf8
-}
+let service = TempConvert("https://www.w3schools.com")
 ```
 
-By default, `unspecified` is set.
+Modify the endpoint directly (use `var` to make the service mutable):
 
-## Example
+```swift
+var service = TempConvert()
+service.endpoint = "https://custom.com/service"
+```
 
-iOSWSDL2Swift target in xcodeproj is an example using WSDL2Swift.
-it generates `WSDL+(ServiceName).swift` at the first step of build and use it from ViewController.swift.
+Specify the charset used in the SOAP request (`.unspecified` by default):
 
-you need to place your WSDL and XSD xmls into exampleWSDLS folder.
+```swift
+service.characterSet = .utf8
+```
 
+Add basic authentication:
 
-## Architecture
+```swift
+service.authentication = .basic(username: "...", password: "...")
+```
 
-usage point of view...
-
-* initialize Service with endpoint URL (endpoint URL can be changed after generating `WSDL+(ServiceName).swift`)
-* initialize request parameter with `ServiceName_OperationName(...)`
-* `Service.request(param)` to get `Future` that will be completed by `NSURLSession` completion
-* parameters and models are typed by xsd definition (even with nullability)
-
+Intercept the SOAP communcation:
+```swift
+service.soapRequest = { print("req:\n\($0)") }
+service.soapResponse = { print("res:\n\($0)") }
+```
