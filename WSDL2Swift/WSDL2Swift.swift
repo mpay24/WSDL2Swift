@@ -37,7 +37,7 @@ struct WSDL2Swift: ParsableCommand {
 
             definitions?.namespaces = [wsdlNs, soapNs, xsdNs, xsiNs].compactMap { $0 as? XMLNode }
             
-            if let wsdl = WSDL(definitions) {
+            if let wsdl = WSDL(definitions, publicMemberwiseInit) {
                 wsdls.append(wsdl)
             }
         }

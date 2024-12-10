@@ -65,7 +65,7 @@ public struct {{ name }}: WSDLService {
         public var {{ element.name }}: {{ element.type }}{% if element.optional %}?{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %}
         {%- endfor %}
         {%- if complexType.base or complexType.isProtocol %}
-        
+
         enum CodingKeys: String, CodingKey {
             case xsiType = "xsi:type"
             {%- if complexType.baseElements or complexType.elements %}
@@ -75,7 +75,7 @@ public struct {{ name }}: WSDLService {
             {%- endfor %}
             {%- endif %}
         }
-        
+
         public static func nodeEncoding(for key: CodingKey) -> XMLEncoder.NodeEncoding {
             switch key {
             case {{ complexType.name }}.CodingKeys.xsiType: return .attribute
@@ -84,32 +84,12 @@ public struct {{ name }}: WSDLService {
         }
         {%- endif %}
         {%- if complexType.hasProtocolElements %}
-        
+
         enum CodingKeys: CodingKey {
             {%- if complexType.baseElements or complexType.elements %}
             case
             {%- for element in complexType.baseElements %} {{ element.name }},{% endfor -%}
             {%- for element in complexType.elements %} {{ element.name }}{% if not forloop.last %},{% endif %}
-            {%- endfor %}
-            {%- endif %}
-        }
-
-        public init(
-            {%- if complexType.baseElements or complexType.elements %}
-            {%- for element in complexType.baseElements %}
-            {{ element.name }}: {{ element.type }}{% if element.optional %}? = nil{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %},
-            {%- endfor %}
-            {%- for element in complexType.elements %}
-            {{ element.name }}: {{ element.type }}{% if element.optional %}? = nil{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %}{% if not forloop.last %},{% endif %}
-            {%- endfor %}
-            {%- endif %}
-        )  {
-            {%- if complexType.baseElements or complexType.elements %}
-            {%- for element in complexType.baseElements %}
-            self.{{ element.name }} = {{ element.name }}
-            {%- endfor %}
-            {%- for element in complexType.elements %}
-            self.{{ element.name }} = {{ element.name }}
             {%- endfor %}
             {%- endif %}
         }
@@ -134,6 +114,28 @@ public struct {{ name }}: WSDLService {
             {%- endfor %}
             {%- for element in complexType.elements %}
             try container.encode{% if element.optional %}IfPresent{%- endif %}(self.{{ element.name }}, forKey: .{{ element.name }})
+            {%- endfor %}
+            {%- endif %}
+        }
+        {%- endif %}
+        {%- if publicMemberwiseInit or complexType.hasProtocolElements %}
+
+        public init(
+            {%- if complexType.baseElements or complexType.elements %}
+            {%- for element in complexType.baseElements %}
+            {{ element.name }}: {{ element.type }}{% if element.optional %}? = nil{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %},
+            {%- endfor %}
+            {%- for element in complexType.elements %}
+            {{ element.name }}: {{ element.type }}{% if element.optional %}? = nil{% else %}{% if element.protocol %}Protocol{% endif %}{% endif %}{% if not forloop.last %},{% endif %}
+            {%- endfor %}
+            {%- endif %}
+        )  {
+            {%- if complexType.baseElements or complexType.elements %}
+            {%- for element in complexType.baseElements %}
+            self.{{ element.name }} = {{ element.name }}
+            {%- endfor %}
+            {%- for element in complexType.elements %}
+            self.{{ element.name }} = {{ element.name }}
             {%- endfor %}
             {%- endif %}
         }

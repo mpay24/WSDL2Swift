@@ -7,6 +7,7 @@
 import Foundation
 
 struct WSDL {
+    let publicMemberwiseInit: Bool
     let targetNamespace: String
     let simpleTypes: [XSDSimpleType]
     let complexTypes: [XSDComplexType]
@@ -15,7 +16,7 @@ struct WSDL {
     let binding: WSDLBinding
     let service: WSDLService
     
-    init?(_ element: XMLElement?) {
+    init?(_ element: XMLElement?, _ publicMemberwiseInit: Bool = false) {
         guard
             let tns = element?.attribute(forName: "targetNamespace")?.stringValue,
             let types = element?.elements(forName: "wsdl:types").first,
@@ -24,6 +25,7 @@ struct WSDL {
             let binding = WSDLBinding(element?.elements(forName: "wsdl:binding").first),
             let service = WSDLService(element?.elements(forName: "wsdl:service").first)
         else { return nil }
+        self.publicMemberwiseInit = publicMemberwiseInit
         self.targetNamespace = tns
         do {
             self.simpleTypes = try schema.nodes(forXPath: "xsd:element[xsd:simpleType]|xsd:simpleType").compactMap { XSDSimpleType($0 as? XMLElement) }
@@ -75,7 +77,8 @@ struct WSDL {
             "path": service.port.path,
             "operations": portType.operations.map { $0.dictionary },
             "simpleTypes": simpleTypes.map { $0.dictionary },
-            "complexTypes": complexTypes
+            "complexTypes": complexTypes,
+            "publicMemberwiseInit": publicMemberwiseInit
         ]
     }
 }
