@@ -8,6 +8,8 @@ struct WSDL2Swift: ParsableCommand {
     var publicMemberwiseInit = false
     @Option(help: "(overwrite) output swift file path for generated swift")
     var out: String = "./WSDL.swift"
+    @Option(help: "output path for generated xsd structs")
+    var targetNamespacePrefix: String = "tns"
     @Argument(help: "WSDL xmls and XSD xmls, ordered as: ws1.xml ws2.xml xsd-for-ws2.xml ws3.xml xsd-for-ws3-1.xml xsd-for-ws3-2.xml ...")
     var files: [String]
     
@@ -34,10 +36,10 @@ struct WSDL2Swift: ParsableCommand {
             let soapNs = XMLElement.namespace(withName: "soap", stringValue: "http://schemas.xmlsoap.org/wsdl/soap/")
             let xsdNs = XMLElement.namespace(withName: "xsd", stringValue: "http://www.w3.org/2001/XMLSchema")
             let xsiNs = XMLElement.namespace(withName: "xsi", stringValue: "http://www.w3.org/2001/XMLSchema-instance")
-
+            
             definitions?.namespaces = [wsdlNs, soapNs, xsdNs, xsiNs].compactMap { $0 as? XMLNode }
             
-            if let wsdl = WSDL(definitions, publicMemberwiseInit) {
+            if let wsdl = WSDL(definitions, publicMemberwiseInit, targetNamespacePrefix) {
                 wsdls.append(wsdl)
             }
         }

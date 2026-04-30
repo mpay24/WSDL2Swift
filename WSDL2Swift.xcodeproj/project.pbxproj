@@ -21,16 +21,8 @@
 		26AA74162CEDDC1700FF3ECD /* WSDLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA740E2CEDDC1700FF3ECD /* WSDLService.swift */; };
 		26AA74172CEDDC1700FF3ECD /* WSDLServicePort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA740F2CEDDC1700FF3ECD /* WSDLServicePort.swift */; };
 		26AA741A2CEDDC1B00FF3ECD /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA74182CEDDC1B00FF3ECD /* Common.swift */; };
-		EA1F062D1E03B6F7006A560D /* iOSWSDL2SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1F062C1E03B6F7006A560D /* iOSWSDL2SwiftTests.swift */; };
 		EA1F09B51DE438EE00414030 /* WSDL2Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1F09B11DE438EE00414030 /* WSDL2Swift.swift */; };
 		EA1F09BB1DE4394C00414030 /* WSDLService.stencil in Copy Resources */ = {isa = PBXBuildFile; fileRef = EA1F09B31DE438EE00414030 /* WSDLService.stencil */; };
-		EA1F09C51DE43B3900414030 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1F09C41DE43B3900414030 /* AppDelegate.swift */; };
-		EA1F09C71DE43B3900414030 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1F09C61DE43B3900414030 /* ViewController.swift */; };
-		EA1F09CC1DE43B3900414030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA1F09CB1DE43B3900414030 /* Assets.xcassets */; };
-		EA1F09CF1DE43B3900414030 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA1F09CD1DE43B3900414030 /* LaunchScreen.storyboard */; };
-		EA1F09D51DE43C0700414030 /* exampleWSDLs in Resources */ = {isa = PBXBuildFile; fileRef = EA1F09D41DE43C0700414030 /* exampleWSDLs */; };
-		EA1F09DC1DE43D6000414030 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = EA1F09DA1DE43D6000414030 /* .gitkeep */; };
-		EA2B48D31E0B5746001D592A /* WSDL+TempConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2B48D21E0B5746001D592A /* WSDL+TempConvert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +57,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		26445B982CF94D7100588053 /* WSDLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSDLService.swift; sourceTree = "<group>"; };
 		26785ADD2CDCB43C002B2CA6 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		26AA73FE2CEDDBF200FF3ECD /* XSDAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XSDAnnotation.swift; sourceTree = "<group>"; };
 		26AA73FF2CEDDBF200FF3ECD /* XSDComplexType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XSDComplexType.swift; sourceTree = "<group>"; };
@@ -80,20 +71,10 @@
 		26AA740F2CEDDC1700FF3ECD /* WSDLServicePort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSDLServicePort.swift; sourceTree = "<group>"; };
 		26AA74182CEDDC1B00FF3ECD /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		EA1F062A1E03B6F7006A560D /* iOSWSDL2SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSWSDL2SwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA1F062C1E03B6F7006A560D /* iOSWSDL2SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSWSDL2SwiftTests.swift; sourceTree = "<group>"; };
-		EA1F062E1E03B6F7006A560D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA1F09A71DE4376C00414030 /* WSDL2Swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = WSDL2Swift; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1F09B11DE438EE00414030 /* WSDL2Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDL2Swift.swift; sourceTree = "<group>"; };
 		EA1F09B31DE438EE00414030 /* WSDLService.stencil */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; path = WSDLService.stencil; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA1F09C21DE43B3900414030 /* iOSWSDL2Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSWSDL2Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA1F09C41DE43B3900414030 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EA1F09C61DE43B3900414030 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EA1F09CB1DE43B3900414030 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EA1F09CE1DE43B3900414030 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		EA1F09D01DE43B3900414030 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA1F09D41DE43C0700414030 /* exampleWSDLs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = exampleWSDLs; sourceTree = "<group>"; };
-		EA1F09DA1DE43D6000414030 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		EA2B48D21E0B5746001D592A /* WSDL+TempConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WSDL+TempConvert.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,22 +109,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		26785ADB2CDCB36A002B2CA6 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				26785ADE2CDCB557002B2CA6 /* WSDLService */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		26785ADE2CDCB557002B2CA6 /* WSDLService */ = {
-			isa = PBXGroup;
-			children = (
-				26445B982CF94D7100588053 /* WSDLService.swift */,
-			);
-			path = WSDLService;
 			sourceTree = "<group>";
 		};
 		267A6B742D08480200417FCE /* Stencils */ = {
@@ -187,23 +152,11 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		EA1F062B1E03B6F7006A560D /* iOSWSDL2SwiftTests */ = {
-			isa = PBXGroup;
-			children = (
-				EA1F062C1E03B6F7006A560D /* iOSWSDL2SwiftTests.swift */,
-				EA1F062E1E03B6F7006A560D /* Info.plist */,
-			);
-			path = iOSWSDL2SwiftTests;
-			sourceTree = "<group>";
-		};
 		EA1F099E1DE4376C00414030 = {
 			isa = PBXGroup;
 			children = (
 				26785ADD2CDCB43C002B2CA6 /* Package.swift */,
-				26785ADB2CDCB36A002B2CA6 /* Sources */,
 				EA1F09A91DE4376C00414030 /* WSDL2Swift */,
-				EA1F09C31DE43B3900414030 /* iOSWSDL2Swift */,
-				EA1F062B1E03B6F7006A560D /* iOSWSDL2SwiftTests */,
 				26445AC32CF4826200588053 /* Frameworks */,
 				EA1F09A81DE4376C00414030 /* Products */,
 			);
@@ -229,30 +182,6 @@
 				EA1F09B11DE438EE00414030 /* WSDL2Swift.swift */,
 			);
 			path = WSDL2Swift;
-			sourceTree = "<group>";
-		};
-		EA1F09C31DE43B3900414030 /* iOSWSDL2Swift */ = {
-			isa = PBXGroup;
-			children = (
-				EA1F09D41DE43C0700414030 /* exampleWSDLs */,
-				EA1F09D91DE43D6000414030 /* generated */,
-				EA1F09C41DE43B3900414030 /* AppDelegate.swift */,
-				EA1F09C61DE43B3900414030 /* ViewController.swift */,
-				EA1F09CB1DE43B3900414030 /* Assets.xcassets */,
-				EA1F09CD1DE43B3900414030 /* LaunchScreen.storyboard */,
-				EA1F09D01DE43B3900414030 /* Info.plist */,
-			);
-			path = iOSWSDL2Swift;
-			sourceTree = "<group>";
-		};
-		EA1F09D91DE43D6000414030 /* generated */ = {
-			isa = PBXGroup;
-			children = (
-				EA1F09DA1DE43D6000414030 /* .gitkeep */,
-				EA2B48D21E0B5746001D592A /* WSDL+TempConvert.swift */,
-			);
-			name = generated;
-			path = exampleWSDLs/generated;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,10 +304,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA1F09CF1DE43B3900414030 /* LaunchScreen.storyboard in Resources */,
-				EA1F09D51DE43C0700414030 /* exampleWSDLs in Resources */,
-				EA1F09CC1DE43B3900414030 /* Assets.xcassets in Resources */,
-				EA1F09DC1DE43D6000414030 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,7 +332,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA1F062D1E03B6F7006A560D /* iOSWSDL2SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,9 +359,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA1F09C71DE43B3900414030 /* ViewController.swift in Sources */,
-				EA2B48D31E0B5746001D592A /* WSDL+TempConvert.swift in Sources */,
-				EA1F09C51DE43B3900414030 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,17 +376,6 @@
 			targetProxy = EA1F09D61DE43C6600414030 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		EA1F09CD1DE43B3900414030 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EA1F09CE1DE43B3900414030 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EA1F06311E03B6F7006A560D /* Debug */ = {
@@ -623,7 +533,6 @@
 		EA1F09AF1DE4376C00414030 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "-";
 				DEVELOPMENT_TEAM = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
@@ -635,7 +544,6 @@
 		EA1F09B01DE4376C00414030 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "-";
 				DEVELOPMENT_TEAM = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.5;

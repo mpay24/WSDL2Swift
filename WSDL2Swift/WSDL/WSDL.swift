@@ -9,14 +9,15 @@ import Foundation
 struct WSDL {
     let publicMemberwiseInit: Bool
     let targetNamespace: String
+    let targetNamespacePrefix: String
     let simpleTypes: [XSDSimpleType]
     let complexTypes: [XSDComplexType]
     let messages: [WSDLMessage]
     let portType: WSDLPortType
     let binding: WSDLBinding
     let service: WSDLService
-    
-    init?(_ element: XMLElement?, _ publicMemberwiseInit: Bool = false) {
+
+    init?(_ element: XMLElement?, _ publicMemberwiseInit: Bool = false, _ tnsPrefix: String = "tns") {
         guard
             let tns = element?.attribute(forName: "targetNamespace")?.stringValue,
             let types = element?.elements(forName: "wsdl:types").first,
@@ -27,6 +28,7 @@ struct WSDL {
         else { return nil }
         self.publicMemberwiseInit = publicMemberwiseInit
         self.targetNamespace = tns
+        self.targetNamespacePrefix = tnsPrefix
         do {
             self.simpleTypes = try schema.nodes(forXPath: "xsd:element[xsd:simpleType]|xsd:simpleType").compactMap { XSDSimpleType($0 as? XMLElement) }
             self.complexTypes = try schema.nodes(forXPath: "xsd:element[xsd:complexType]|xsd:complexType").compactMap { XSDComplexType($0 as? XMLElement) }
@@ -39,15 +41,15 @@ struct WSDL {
             return nil
         }
     }
-    
+
     func isProtocol(_ typeName: String) -> Bool {
         complexTypes.contains(where: { $0.base == typeName })
     }
-    
+
     func protocolExtensions(_ typeName: String) -> [String] {
         complexTypes.filter { $0.base == typeName }.map { $0.name }
     }
-    
+
     var dictionary: [String: Any] {
         let protocolTypeNames = complexTypes.filter { isProtocol($0.name) }.map { $0.name }
         // Update type hierarchy
@@ -68,9 +70,10 @@ struct WSDL {
             dictionary["hasProtocolElements"] = hasProtocolElements || hasProtocolBaseElements
             return dictionary
         }
-        
+
         return [
             "targetNamespace": targetNamespace,
+            "targetNamespacePrefix": targetNamespacePrefix,
             "name": service.name,
             "documentation": service.documentation ?? "",
             "location": service.port.location,
