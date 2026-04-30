@@ -67,12 +67,12 @@ public enum Authentication {
         return request
     }
 }
-                              
+
 public enum CharacterSet {
     case unspecified
     case manual( String )
     case utf8
-    
+
     var specifier: String {
         switch self{
         case .unspecified: ""
@@ -84,7 +84,7 @@ public enum CharacterSet {
 
 struct SOAPEnvelope<Body: Codable>: Codable {
     var body: Body
-    
+
     struct CodingKeys: CodingKey {
         var stringValue: String
         var intValue: Int?
@@ -102,7 +102,7 @@ struct SOAPEnvelope<Body: Codable>: Codable {
         let bodyContainer = try envelope.nestedContainer(keyedBy: CodingKeys.self, forKey: bodyContainerKey)
         self.body = try bodyContainer.decode(Body.self, forKey: CodingKeys(stringValue: String(describing: Body.self))!)
     }
-    
+
     public func encode(to encoder: any Encoder) throws {
         var envelope = encoder.container(keyedBy: CodingKeys.self)
         let bodyContainerKey = CodingKeys(stringValue: "soap:Body")
