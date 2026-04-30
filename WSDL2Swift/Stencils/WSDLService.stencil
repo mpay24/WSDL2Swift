@@ -143,7 +143,7 @@ public struct {{ name }} {
     {% if simpleType.annotation.documentation %}
     /// {{ simpleType.annotation.documentation }}
     {%- endif %}
-    public enum {{ simpleType.name }}: {{ simpleType.base }}, Codable, CustomStringConvertible, CaseIterable, Equatable, Hashable {
+    public enum {{ simpleType.name }}: {{ simpleType.base }}, Codable, CustomStringConvertible, CaseIterable, Equatable, Hashable, Sendable {
         {%- for value in simpleType.enumeration %}
         case {{ value }}
         {%- endfor %}
