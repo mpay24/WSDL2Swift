@@ -14,10 +14,10 @@ fileprivate let TYPE_MAP: [String: Any.Type] = [
     "unsignedInt": UInt32.self,
     "long": Int64.self,
     "unsignedLong": UInt64.self,
-    "date": Date.self,
+    "date": String.self,
     "dateTime": Date.self,
     "base64Binary": Data.self,
-    "anyURI": URL.self,
+    "anyURI": String.self,
 ]
 
 func swiftSafeName(_ name: String) -> String {
